@@ -13,4 +13,4 @@
 граммирования. Содержание вариантов по теме 15 приве-
 дено в прил. 2, табл. 7-8.
 
-![Иллюстрация к проекту](https://github.com/keiby1/KR_MiIMPPR/ывыв.png)
+![Иллюстрация к проекту](https://github.com/keiby1/KR_MiIMPPR/blob/master/ывыв.png)
