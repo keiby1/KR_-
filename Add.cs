@@ -12,9 +12,9 @@ namespace ParameterOptimization
 {
     public partial class Add : Form
     {
-        private String name;
-        private int[] data;
-        private bool flag;
+        private String name;//название станции
+        private int[] data; //информация из таблицы
+        private bool flag;  //флаг добавления
 
         public Add()
         {
@@ -29,12 +29,14 @@ namespace ParameterOptimization
             }
         }
 
+        //отмена добавления
         private void button2_Click(object sender, EventArgs e)
         {
             flag = false;
             this.Close();
         }
 
+        //добавить
         private void button1_Click(object sender, EventArgs e)
         {
             name = textBox1.Text;
@@ -42,7 +44,7 @@ namespace ParameterOptimization
 
             int kr, hour;
             int i;
-            for (i = 0; i < dataGridView1.RowCount; i++)
+            for (i = 0; i < dataGridView1.RowCount; i++)    //получение данных с проверкой
             {
                 if (dataGridView1.Rows[i].Cells[0].Value == null)
                     kr = 999;
@@ -58,6 +60,7 @@ namespace ParameterOptimization
             this.Close();
         }
 
+        //геттеры полей
         public bool getFlag()
         {
             return flag;

@@ -12,12 +12,12 @@ namespace ParameterOptimization
 {
     public partial class InitD : Form
     {
-        private int D;
+        private int D;              //ограничение 
 
         public InitD()
         {
             InitializeComponent();
-            D = 18;
+            D = 18;                 //значение по умолчанию
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -12,9 +12,11 @@ namespace ParameterOptimization
 {
     public partial class Form1 : Form
     {
-        private int D;
-        private int indRow;
+        private int D;          //ограничение на число кранов
+        private int indRow;     //индекс последней заполненной строки в таблице 2
+        private int[,] arr;     //массив с данными о кранах
 
+        //установление значений таблицы по умолчанию
         private void SetDefaultValue()
         {
 
@@ -63,9 +65,10 @@ namespace ParameterOptimization
 
         }
 
+        //конструктор формы
         public Form1()
         {
-            InitD d = new InitD();
+            InitD d = new InitD(); //вызов окна ввода D, перед отрисовкой формы
             d.ShowDialog();
             D = d.getD();
             indRow = 0;
@@ -74,18 +77,20 @@ namespace ParameterOptimization
             SetDefaultValue();
         }
 
+        //добавление станции
         private void добавитьСтанциюToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Add add = new Add();
+            Add add = new Add();    //вызов окна добавления
             add.ShowDialog();
             if (add.getFlag() == true)
             {
-                dataGridView1.Rows.Add(add.getName());
-                dataGridView2.Rows.Add();
-                outInfo(add.getList());
+                dataGridView1.Rows.Add(add.getName()); //получение названия станции
+                dataGridView2.Rows.Add();              //добавление строки
+                outInfo(add.getList());                //заполнение строки информацией из предыдущего окна
             }
         }
 
+        //вывод информации в таблицу
         private void outInfo(int[] arr)
         {
             try
@@ -105,9 +110,7 @@ namespace ParameterOptimization
             }
         }
 
-        private int ind;
-        private int[,] arr;
-
+        //преобразование данных 
         private void preobr()
         {
             try
@@ -132,10 +135,10 @@ namespace ParameterOptimization
             }
         }
 
-
+        //вычисления
         private void вычислитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            preobr();
+            preobr();   //вызов функции преобразования
 
             try
             {
@@ -158,9 +161,9 @@ namespace ParameterOptimization
                                     sum = arr[0, i1] + arr[1, i2] + arr[2, i3] + arr[3, i4];
                                     if (sum < minSum)
                                     {
-                                        dmin = d;
-                                        minSum = sum;
-                                        j1 = i1;
+                                        dmin = d;           //запоминание мин. кол-ва кранов
+                                        minSum = sum;       //запоминание необх. времени
+                                        j1 = i1;            //запоминание индексов в таблице
                                         j2 = i2;
                                         j3 = i3;
                                         j4 = i4;
@@ -171,19 +174,20 @@ namespace ParameterOptimization
                     }
                 }
 
-                if (minSum != 999 && dmin != 0)
+                if (minSum != 999 && dmin != 0) //если вычисления успешны
                 {
+                    //вывести сообщение
                     MessageBox.Show("Решение найдено!", "Уведомление!", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    toolStripStatusLabel2.Text = dmin.ToString();
+                    toolStripStatusLabel2.Text = dmin.ToString();   //вывести информацию в статусную строку
                     toolStripStatusLabel4.Text = minSum.ToString();
 
-                    dataGridView2.Rows[0].Cells[j1].Style.BackColor = Color.GreenYellow;
+                    dataGridView2.Rows[0].Cells[j1].Style.BackColor = Color.GreenYellow;    //раскрасить поля
                     dataGridView2.Rows[1].Cells[j2].Style.BackColor = Color.GreenYellow;
                     dataGridView2.Rows[2].Cells[j3].Style.BackColor = Color.GreenYellow;
                     dataGridView2.Rows[3].Cells[j4].Style.BackColor = Color.GreenYellow;
                 }
-                else MessageBox.Show("Решение не может быть найдено", "Уведомление!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                else MessageBox.Show("Решение не может быть найдено", "Уведомление!", MessageBoxButtons.OK, MessageBoxIcon.Warning); //иначе вывод сообщения об ошибке
             }
             catch (Exception ex)
             {
@@ -191,13 +195,14 @@ namespace ParameterOptimization
             }
         }
 
+        //удаление станции
         private void удалитьСтанциюToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
-                indRow--;
-                int removeInd = dataGridView1.CurrentCell.RowIndex;
-                dataGridView1.Rows.RemoveAt(removeInd);
+                indRow--;  
+                int removeInd = dataGridView1.CurrentCell.RowIndex;  //получение индекса выделенной строки в первой таблице
+                dataGridView1.Rows.RemoveAt(removeInd); //удаление по индексу
                 dataGridView2.Rows.RemoveAt(removeInd);
             }
             catch (Exception ex)
